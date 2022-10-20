@@ -3,13 +3,9 @@
 """Example extractor based on the clowder code."""
 
 import logging
-import os
-import subprocess
 import ray
 import numpy as np
 import matplotlib.pyplot as plt
-import librosa
-import librosa.display
 
 from pyclowder.extractors import Extractor
 import pyclowder.files
