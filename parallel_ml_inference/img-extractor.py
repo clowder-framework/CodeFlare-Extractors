@@ -4,6 +4,7 @@
 
 import logging
 import ray
+from ray.util.queue import Queue
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -48,8 +49,25 @@ class WavExtractor(Extractor):
         logging.getLogger('pyclowder').setLevel(logging.DEBUG)
         logging.getLogger('__main__').setLevel(logging.DEBUG)
 
+
     def process_message(self, connector, host, secret_key, resource, parameters):
+        """Dataset extractor. We get all filenames at once."""
         # Process the file and upload the results
+        
+        # all files = resource["local_paths"]
+        items = resource["local_paths"]
+        
+        
+        # Now add all your files to the processing queue, 
+        # in whatever format you want the model to read them
+        q = Queue() 
+        for item in items: 
+            q.put(item)
+        
+        for item in items: 
+            assert item == q.get()
+        # Create Queue with the underlying actor reserving 1 CPU.
+        
 
         logger = logging.getLogger(__name__)
         inputfile = resource["local_paths"][0]
