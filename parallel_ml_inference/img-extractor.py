@@ -2,14 +2,8 @@
 
 """Parallel Machine Learning Extractor"""
 
-# from asyncio import futures
+from distutils import extension
 import logging
-# import time
-# import asyncio
-
-import requests
-
-from importlib_metadata import files
 
 import numpy as np
 import ray
@@ -24,13 +18,6 @@ class AsyncActor:
         from tensorflow.keras.applications.resnet50 import ResNet50
         self.model = ResNet50(weights='imagenet')
         print("Finish Init")
-    
-    # def run_concurrent(self, file):
-    #     data = [] 
-    #     while not self.queue.empty():
-    #         future = self.process_file(self.queue.pop())
-    #         data.append(ray.get(future))
-    #     return data
     
     def process_file(self, filepaths):
         print("Process file \n")
@@ -69,74 +56,57 @@ class ImgExtractor(Extractor):
 
     def process_message(self, connector, host, secret_key, resource, parameters):
         """Dataset extractor. We get all filenames at once."""
-        # Process the file and upload the results
-        
-        # all files = resource["local_paths"]
-        items = resource["local_paths"]
-        
-        
-        # Now add all your files to the processing queue, 
-        # in whatever format you want the model to read them
-        q = Queue()
-        for item in items: 
-            q.put(item)
-        
-        for item in items: 
-            assert item == q.get()
-            
-        # Create Queue with the underlying actor reserving 1 CPU.
-        
-
         logger = logging.getLogger(__name__)
-        inputfile = resource["local_paths"][0]
-        file_id = resource['id']
+        
+        # Get list of all files in dataset
+        filelist = pyclowder.datasets.get_file_list(connector, host, secret_key, parameters['datasetId'])
+        localfiles = []
+        
+        # # Loop through dataset and download all file "locally"
+        for file_dict in filelist:
+            extension = "." + file_dict['contentType'].split("/")[1]
+            localfiles.append(pyclowder.files.download(connector, host, secret_key, file_dict['id'], ext=extension))
 
         # These process messages will appear in the Clowder UI under Extractions.
         connector.message_process(resource, "Loading contents of file...")
 
         # Print resource
-        logging.warning("Printing Resources:\n")
+        logging.warning("Printing Resources:")
         logging.warning(resource)
-        logging.warning(resource["local_paths"])
+        logging.warning("\n")
         
-        classification = ray.get(process_file.remote(str(inputfile)))
-        ray.get([actor.run_concurrent.remote() for _ in range(4)])
-        # classification = self.process_file.remote(resource["local_paths"][0])
+        # Print localfiles
+        logging.warning("Printing local files:")
+        logging.warning(localfiles)
+        logging.warning("\n")
+        
+        # Initialize actor and run machine learning module concurrently
+        # TODO: Make "max_concurrency an argument?"
+        # NOTE: Only "max_concurrency" tasks will be running concurrently. Once "max_concurrency" finish, the next "max_concurrency" batch should run.
+        actor = AsyncActor.options(max_concurrency=5).remote()
+        classifications = ray.get([actor.process_file.remote(localfiles[i]) for i in range(len(localfiles))])
 
-        # Upload metadata to original file
-        result = {
-                'Classification': classification
-        }
+        for i in range(len(classifications)):
+            # Upload metadata to original file
+            my_metadata = {
+                    'Output': classifications[i]
+            }
 
-        # post metadata to Clowder
-        metadata = self.get_metadata(result, 'file', file_id, host)
+            # Create Clowder metadata object
+            metadata = self.get_metadata(my_metadata, 'file', filelist[i]['id'], host)
 
-        # Normal logs will appear in the extractor log, but NOT in the Clowder UI.
-        logger.debug(metadata)
+            # Normal logs will appear in the extractor log, but NOT in the Clowder UI.
+            logger.debug(metadata)
 
-        # Upload metadata to original file
-        pyclowder.files.upload_metadata(connector, host, secret_key, file_id, metadata)
-        logging.warning("Done extracting!")
+            # Upload metadata to original file
+            pyclowder.files.upload_metadata(connector, host, secret_key, filelist[i]['id'], metadata)
+        
+        # Finish
+        logging.warning("Successfully extracted!")
 
 if __name__ == "__main__":
-    print("Hello")
     LOCAL_PORT = 10001
     ray.init() # f"ray://127.0.0.1:{LOCAL_PORT}"
-    # extractor = ImgExtractor()
-    # extractor.start()
-    
-    # get files
-    files = []
-    for _ in range(10):
-        files.append("/home/phantuanminh/CodeFlare-Extractors/parallel_ml_inference/pics/saiki.jpg")
-        
-    print(files)
-    
-    # init actor and run
-    print("Initing Actor")
-    actor = AsyncActor.options(max_concurrency=5).remote()
-
-    # only 10 tasks will be running concurrently. Once 10 finish, the next 10 should run.
-    metadata = ray.get([actor.process_file.remote(files[i]) for i in range(len(files))])
-    print(metadata)
+    extractor = ImgExtractor()
+    extractor.start()
 

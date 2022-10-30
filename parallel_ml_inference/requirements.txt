@@ -1,6 +1,5 @@
 pyclowder==2.6.0
 numpy
-matplotlib
 ray[default]==1.13.0
 keras
 pillow
