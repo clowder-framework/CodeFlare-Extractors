@@ -19,9 +19,6 @@
     }
   ],
   "process": {
-    "dataset": [
-      "*"
-    ]
   },
   "external_services": [],
   "dependencies": [],
