@@ -1,7 +1,7 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
   "name": "ncsa.img-extractor",
-  "version": "2.0",
+  "version": "2.1",
   "description": "Image Classifier",
   "author": "Minh Phan",
   "contributors": ["Kastan Day", "Meer Gujral"],
@@ -19,6 +19,9 @@
     }
   ],
   "process": {
+    "dataset": [
+      "*"
+    ]
   },
   "external_services": [],
   "dependencies": [],

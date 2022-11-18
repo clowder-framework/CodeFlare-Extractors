@@ -19,6 +19,9 @@
     }
   ],
   "process": {
+    "dataset": [
+      "file-added"
+    ]
   },
   "external_services": [],
   "dependencies": [],
