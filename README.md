@@ -28,6 +28,9 @@ cd ../ && codeflare CodeFlare-Extractors
 
 Follow the CLI to run one of our demos, or modify our demos to fit your needs!
 
+Running the CodeFlare-CLI adds the extractor to Clowder’s Docker compose file, then you to use it, you most likely have to actually go into Clowder web app and click “Submit for extraction” in any particular Dataset.
+![CleanShot 2022-11-17 at 20 45 55](https://user-images.githubusercontent.com/13607221/202605295-b76e2e8f-a398-4997-8f50-091a5279ba87.png)
+
 
 ## Documentation
 
