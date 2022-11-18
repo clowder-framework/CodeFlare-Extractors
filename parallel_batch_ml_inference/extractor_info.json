@@ -1,10 +1,10 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
-  "name": "ncsa.img-extractor",
-  "version": "2.1",
-  "description": "Image Classifier",
+  "name": "ncsa.parallel-dataset-image-classification",
+  "version": "2.2",
+  "description": "Parallel batch ML inference image classifier.",
   "author": "Minh Phan",
-  "contributors": ["Kastan Day", "Meer Gujral"],
+  "contributors": ["Kastan Day"],
   "contexts": [
     {
       "lines": "http://clowder.ncsa.illinois.edu/metadata/ncsa.wordcount#lines",

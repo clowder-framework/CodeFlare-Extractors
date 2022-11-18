@@ -1,6 +1,6 @@
-A simple extractor that counts the number of characters, words and lines in a text file.
+# This extractor is best run via CodeFlare, see the top-level README for more. 
 
-# Docker
+# Manual Docker (no CodeFlare)
 
 This extractor is ready to be run as a docker container, the only dependency is a running Clowder instance. Simply build and run.
 

@@ -1,10 +1,10 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
-  "name": "ncsa.img-extractor",
-  "version": "2.0",
-  "description": "Image Classifier",
+  "name": "ncsa.template_parallel_dataset_extractor",
+  "version": "1.0",
+  "description": "This is an example template extractor (for parallel inference). Please edit this text in extractor_info.json.",
   "author": "Minh Phan",
-  "contributors": ["Kastan Day", "Meer Gujral"],
+  "contributors": ["Kastan Day"],
   "contexts": [
     {
       "lines": "http://clowder.ncsa.illinois.edu/metadata/ncsa.wordcount#lines",

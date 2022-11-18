@@ -83,7 +83,7 @@ class ImgExtractor(Extractor):
         # Initialize actor and run machine learning module concurrently
         # TODO: Make "max_concurrency an argument?"
         # NOTE: Only "max_concurrency" tasks will be running concurrently. Once "max_concurrency" finish, the next "max_concurrency" batch should run.
-        actor = AsyncActor.options(max_concurrency=5).remote()
+        actor = AsyncActor.options(max_concurrency=3).remote()
         classifications = ray.get([actor.process_file.remote(localfiles[i]) for i in range(len(localfiles))])
 
         for i in range(len(classifications)):
