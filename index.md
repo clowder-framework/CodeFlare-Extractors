@@ -4,12 +4,18 @@ NOTE: Make sure this file is on Clowder folder
 
 # Clone the CodeFlare-Clowder Template Extractors
 
-The CodeFlare-Clowder Template Extractors are a set of extractors that can be used to extract metadata from a variety of file types. The extractors are written in Python and are designed to be run in the Clowder environment. The extractors are available on GitHub at [CodeFlare-Extractors](https://github.com/clowder-framework/CodeFlare-Extractors).
+The CodeFlare-Clowder Template Extractors are a set of extractors that can be used to extract metadata from a variety of file types. The extractors are written in Python and are designed to be run in the Clowder environment. The extractors are available on GitHub at [CodeFlare-Extractors](https://github.com/clowder-framework/CodeFlare-Extractors). Warning: Demo uses Tensorflow that is NOT compatible with Apple Silicon. 
 
 ```shell
 if [ ! -d "./CodeFlare-Extractors" ] 
 then 
     git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
+fi
+```
+
+```shell
+if [[ $(uname -m) == 'arm64' ]]; then
+  echo "⚠️ ERROR: These demos will NOT work on Apple Silicon (or arm64) because of the Tensorflow model being used. But you can still edit these demos to fit your needs for any parallel extractors. These demos are a great starting point.
 fi
 ```
 
@@ -47,7 +53,7 @@ fi
     ```
 
 === "⏰  Event-Driven (triggers when files are added to dataset)"
-    Even-driven extractors are perfect for when you upload data to Clowder via the REST API. This way, whenever you add files, you can run them through your ML inference, or whatever you want, post-processing. All in parallel, making full use of your hardware.
+    Even-driven extractors are perfect for when you upload data to Clowder via the REST API. This way, whenever you add files, you can run them through your ML inference, or whatever you want, post-processing. All in parallel, making full use of your hardware. Warning: Demo uses Tensorflow that is NOT compatible with Apple Silicon.
 
     ```shell
     cd CodeFlare-Extractors/event_driven_ml_inference/
