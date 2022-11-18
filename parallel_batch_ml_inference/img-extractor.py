@@ -62,13 +62,23 @@ class ImgExtractor(Extractor):
         filelist = pyclowder.datasets.get_file_list(connector, host, secret_key, parameters['datasetId'])
         localfiles = []
         
-        # Loop through dataset and download all file "locally"
+        # # Loop through dataset and download all file "locally"
         for file_dict in filelist:
             extension = "." + file_dict['contentType'].split("/")[1]
             localfiles.append(pyclowder.files.download(connector, host, secret_key, file_dict['id'], ext=extension))
 
         # These process messages will appear in the Clowder UI under Extractions.
         connector.message_process(resource, "Loading contents of file...")
+
+        # Print resource
+        logging.warning("Printing Resources:")
+        logging.warning(resource)
+        logging.warning("\n")
+        
+        # Print localfiles
+        logging.warning("Printing local files:")
+        logging.warning(localfiles)
+        logging.warning("\n")
         
         # Initialize actor and run machine learning module concurrently
         # TODO: Make "max_concurrency an argument?"
@@ -99,4 +109,7 @@ if __name__ == "__main__":
     ray.init() # f"ray://127.0.0.1:{LOCAL_PORT}"
     extractor = ImgExtractor()
     extractor.start()
+
+
+
 
