@@ -31,6 +31,17 @@ Follow the CLI to run one of our demos, or modify our demos to fit your needs!
 Running the CodeFlare-CLI adds the extractor to Clowder’s Docker compose file, then you to use it, you most likely have to actually go into Clowder web app and click “Submit for extraction” in any particular Dataset.
 ![CleanShot 2022-11-17 at 20 45 55](https://user-images.githubusercontent.com/13607221/202605295-b76e2e8f-a398-4997-8f50-091a5279ba87.png)
 
+## Use our templates to build a high performance Clowder Extractor
+
+Need to process a lot of files? These demos are a great starting point to write your own parallel file extractor. 
+
+This is great for:
+* ML Inference
+* Data pre-processing
+
+Try out our demo by running `$ cd ../ && codeflare CodeFlare-Extractors`.
+
+You can edit it to fit your needs, or write your own Extractor starting with our heavily documented template here: `./template_for_custom_parallel_batch_extractors`.
 
 ## Documentation
 
