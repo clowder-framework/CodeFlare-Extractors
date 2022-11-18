@@ -1,7 +1,7 @@
 # CodeFlare-Extractors
 Performance-oriented, parallel, [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
 
-These are well suited for running ML Inference inside Clowder via a GUI. 
+These are well suited for running ML Inference inside Clowder the extractors GUI. 
 
 ## Install
 1. Clone this repo inside your [Clowder](https://github.com/clowder-framework/clowder) directory, for example:
