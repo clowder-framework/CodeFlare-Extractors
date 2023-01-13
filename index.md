@@ -7,9 +7,6 @@ if [ ! -d "./CodeFlare-Extractors" ]
 then 
     git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
 fi
-if [[ $(uname -m) == 'arm64' ]]; then
-  echo "⚠️  ERROR: These demos will NOT work on Apple Silicon (or arm64) because of the Tensorflow model being used. But you can still edit these demos to fit your needs for any parallel extractors. These demos are a great starting point.\n"
-fi
 ```
 
 === "🏎   Pytorch -- Parallel Dataset Extractor -- run ML inference on whole dataset"
@@ -19,7 +16,7 @@ fi
     cd CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/
 
     # Build the image
-    echo "Docker will likely require sudo password"s
+    echo "Docker will likely require your sudo password"
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
     docker build . -t parallel-batch-ml-inference-pytorch:latest
 
@@ -30,7 +27,7 @@ fi
       parallel-batch-ml-inference-pytorch:
         image: parallel-batch-ml-inference-pytorch:latest
         restart: unless-stopped
-        networks:_
+        networks:
           - clowder
         depends_on:
           - rabbitmq
@@ -43,7 +40,7 @@ fi
     
     ```shell
     echo "Starting Clowder with extractors"
-    echo "Docker will likely require sudo password"
+    echo "Docker will likely require your sudo password"
     sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
@@ -57,7 +54,7 @@ fi
     cd CodeFlare-Extractors/parallel_batch_ml_inference/
 
     # Build the image
-    echo "Docker will likely require sudo password"s
+    echo "Docker will likely require your sudo password"
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
     docker build . -t parallel-batch-ml-inference-tensorflow:latest
 
@@ -81,7 +78,7 @@ fi
     
     ```shell
     echo "Starting Clowder with extractors"
-    echo "Docker will likely require sudo password"
+    echo "Docker will likely require your sudo password"
     sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
@@ -93,6 +90,7 @@ fi
     ```shell
     cd CodeFlare-Extractors/event_driven_ml_inference/
 
+    echo "Docker will likely require your sudo password"
     # Build the image
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
     docker build . -t event-driven-extractor:latest
@@ -113,7 +111,11 @@ fi
           - RABBITMQ_URI=${RABBITMQ_URI:-amqp://guest:guest@rabbitmq/%2F}
       ''' >> docker-compose.extractors.yml
     fi
+    ```
 
+    ```shell
+    echo "Starting Clowder with extractors"
+    echo "Docker will likely require your sudo password"
     sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
