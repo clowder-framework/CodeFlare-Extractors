@@ -1,3 +1,31 @@
+<div align="center">
+<p align="center">
+
+<!-- prettier-ignore -->
+<h1><img src="https://avatars.githubusercontent.com/u/51137373?s=200&v=4" height="45px"> Clowder Framework Data Processors</h1>
+
+**The open-source tool for Long Tail Data Management**
+
+<!-- prettier-ignore -->
+<a href="https://clowderframework.org/">Website</a> •
+<a href="https://clowder-framework.readthedocs.io/en/latest/userguide/installing_clowder.html">Install</a> •
+<a href="https://clowder-framework.readthedocs.io/en/latest/">Docs</a> •
+<a href="https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/template_for_custom_parallel_batch_extractors">Make your own from a Template</a> •
+<a href="https://clowder.ncsa.illinois.edu/clowder/">Try it now</a>
+
+Join our Slack to talk to the devs 
+
+[![Join our Slack for support](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)](https://clowder-software.slack.com/join/shared_invite/enQtMzQzOTg0Nzk3OTUzLTYwZDlkZDI0NGI4YmI0ZjE5MTZiYmZhZTIyNWE1YzM0NWMwMzIxODNhZTA1Y2E3MTQzOTg1YThiNzkwOWQwYWE#/shared-invite/email)
+
+[![CodeFlare Clowder](./utils/media/CodeFlare_CLI_Demo.png)](https://clowder-framework.readthedocs.io/en/latest/userguide/installing_clowder.html)
+
+CodeFlare + Clowder makes it easy to run ML inference and similar workloads over your files, no matter how unique your data is.
+
+</p>
+</div>
+
+---
+
 # CodeFlare-Extractors
 Performance-oriented, parallel, [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
 
