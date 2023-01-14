@@ -43,6 +43,8 @@ Need to process a lot of files? **This is great for ML inference and data pre-pr
 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" width="40" align="left">
 
 [TensorFlow Keras example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel_batch_ml_inference)
+<br>
+<br>
 
 ### 🔁 Event-driven
 
@@ -130,7 +132,7 @@ class AsyncActor:
 
         # 👉 ADD YOUR PARALLEL CODE HERE 
         # For example:
-        prediction = model.run(filepath) 
+        prediction = self.model.run(filepath) 
 
         # return your results, it MUST return a Python dictionary.
         metadata = {
