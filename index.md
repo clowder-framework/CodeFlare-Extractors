@@ -41,7 +41,7 @@ fi
     ```shell
     echo "Starting Clowder with extractors"
     echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
     Done!
@@ -79,7 +79,7 @@ fi
     ```shell
     echo "Starting Clowder with extractors"
     echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
     Done!
@@ -116,7 +116,7 @@ fi
     ```shell
     echo "Starting Clowder with extractors"
     echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
     ```
 
 === "🛠   Make your own from a template"
