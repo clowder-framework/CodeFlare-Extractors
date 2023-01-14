@@ -26,50 +26,81 @@ CodeFlare + Clowder makes it easy to run ML inference and similar workloads over
 
 ---
 
-# CodeFlare-Extractors
-Performance-oriented, parallel, [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
+## Why Extractors?
 
-These are well suited for running ML Inference inside Clowder the extractors GUI. 
+At its heart, **extractors run a Python function over every file in a dataset**. They can run at the click of a button in Clowder web UI or like an event listener every time a new file is uploaded.
 
-## Install
-1. Clone this repo inside your [Clowder](https://github.com/clowder-framework/clowder) directory, for example:
-```text
-── Clowder
-└─── CodeFlare-Extractors
+Extractors are performant, parallel-by-default, web-native [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
+
+### ML Inference
+
+Need to process a lot of files? **This is great for ML inference and data pre-processing**. Check out our ML inference examples, or just swap out the model to your own!
+
+<img src="https://pytorch.org/assets/images/pytorch-logo.png" width="40" align="left">
+
+[PyTorch example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel-batch-ml-inference-pytorch)
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" width="35" align="left">
+
+[TensorFlow Keras example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel_batch_ml_inference)
+
+### Event-driven
+
+Have daily data dumps? **Extractors are perfect for event-driven actions**. They will run code every time a file is uploaded. Uploads themselves can be automated via [PyClowder](https://github.com/clowder-framework/pyclowder) for a totally hands-free data pipeline.
+
+### Clowder's rich scientific data ecosystem
+
+Benefit from the rich featureset & full extensibility of Clowder:
+* Instead of files on your laptop, use Clowder to add collaborators & share datasets via the browser.
+* Scientists like that we work with every filetype, and have rich extensibility for any job you need to run.
+
+
+## 🚀 Quickstart install
+1. Clone this repo inside your [Clowder](https://github.com/clowder-framework/clowder) directory (or [install Clowder](https://clowder-framework.readthedocs.io/en/latest/userguide/installing_clowder.html) if you haven't yet):
+<img src="https://avatars.githubusercontent.com/u/51137373?s=200&v=4" width="100" align="left">
+
+```bash
+cd your/path/to/clowder
+git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
 ```
+
 2. Install [CodeFlare-CLI](https://github.com/project-codeflare/codeflare-cli) 
+<img src="./utils/media/codeflare_cli.svg" width="100" height="100" align="left">
+
 
 ```bash
 brew tap project-codeflare/codeflare-cli https://github.com/project-codeflare/codeflare-cli
 brew install codeflare
 ```
-If you're on Windows or Linux, please install from source, as described in the [CodeFlare-CLI repo](https://github.com/project-codeflare/codeflare-cli).
+On Linux, please install from source, as described in the [CodeFlare-CLI repo](https://github.com/project-codeflare/codeflare-cli). Windows has not been tested.
 
 
 ## Usage
 
 Invoke from **inside your Clowder directory,** so that we may respect Clowder's existing Docker Compose files. 
 
-```
-cd ../ && codeflare CodeFlare-Extractors
+1. Launch the codeflare CLI to try our default extractors. This will launch Clowder.
+
+```bash
+cd your/path/to/clowder 
+codeflare ./CodeFlare-Extractors
 ```
 
-Follow the CLI to run one of our demos, or modify our demos to fit your needs!
+2. Now, upload an image to a [Clowder Dataset](https://clowder-framework.readthedocs.io/en/latest/userguide/ug_datasets.html) so we can try to classify it (into one of 1000 imagenet classes).
 
-Running the CodeFlare-CLI adds the extractor to Clowder’s Docker compose file, then you to use it, you most likely have to actually go into Clowder web app and click “Submit for extraction” in any particular Dataset.
+3. Finally, run the extractor! In the web app, click “Submit for extraction” (shown below).
+
 ![CleanShot 2022-11-17 at 20 45 55](https://user-images.githubusercontent.com/13607221/202605295-b76e2e8f-a398-4997-8f50-091a5279ba87.png)
 
-## Use our templates to build a high performance Clowder Extractor
 
-Need to process a lot of files? These demos are a great starting point to write your own parallel file extractor. 
-
-This is great for:
-* ML Inference
-* Data pre-processing
-
-Try out our demo by running `$ cd ../ && codeflare CodeFlare-Extractors`.
-
+## 🛠 Make your own
 You can edit it to fit your needs, or write your own Extractor starting with our heavily documented template here: `./template_for_custom_parallel_batch_extractors`.
+
+#### Worked example
+Todo: Show the Python funciton in-line here, so we can walk thru exactly what to modify.
+
+#### Using the CodeFlare CLI
+Running the CodeFlare-CLI adds the extractor to Clowder’s `docker-compose-extractors.yaml` file. Then Clowder is started as normal, e.g. `docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d`.
 
 ## Documentation
 
