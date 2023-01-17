@@ -17,7 +17,9 @@ class AsyncActor:
 
     def __init__(self):
         # Load the pre-trained model
+        print("Starting to load model")
         self.model = torchvision.models.resnet18(pretrained=True)
+        print("After model loaded")
         # Put the model in eval mode
         self.model.eval()
         print("Finish Init")
@@ -150,6 +152,14 @@ class ImgExtractor(Extractor):
 
 if __name__ == "__main__":
     LOCAL_PORT = 10001
-    ray.init()  # f"ray://127.0.0.1:{LOCAL_PORT}"
+    print("Main() called")
+    ray.shutdown()
+    print("before ray.init")
+    # f"ray://127.0.0.1:{LOCAL_PORT}"
+    ray.init(f"ray://127.0.0.1:{LOCAL_PORT}")
+    assert ray.is_initialized()
+    print("Ray initialized")
     extractor = ImgExtractor()
+    print("After extractor inited")
     extractor.start()
+    print("After extractor.start()")
