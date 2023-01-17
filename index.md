@@ -3,9 +3,20 @@
 The CodeFlare-Clowder Template Extractors are a set of extractors that can be used to extract metadata from a variety of file types. The extractors are written in Python and are designed to be run in the Clowder environment. The extractors are available on GitHub at [CodeFlare-Extractors](https://github.com/clowder-framework/CodeFlare-Extractors). NOTE: Make sure this file is on Clowder folder
 
 ```shell
+# Clone the repo if it doesn't exist
 if [ ! -d "./CodeFlare-Extractors" ] 
 then 
     git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
+fi
+
+# Start docker if it's not running
+# echo "Starting Docker"
+# the -g command prevents it from making it the 'focused/foremost' app.
+if [ $(uname) = "Darwin" ]; then
+    echo "Starting IN BACKGROUND"
+    open -ag Docker &
+elif [ $(uname) = "Linux" ]; then
+    sudo service docker start
 fi
 ```
 
@@ -13,15 +24,12 @@ fi
     This demo runs Tensorflow inference over every file in a dataset. Change it to fit your needs!
 
     ```shell
-    cd CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/
-
     # Build the image
     echo "Docker will likely require your sudo password"
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
-    docker build . -t parallel-batch-ml-inference-pytorch:latest
+    docker build CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/ -t parallel-batch-ml-inference-pytorch:latest
 
     # Add the image to Clowder docker-compose file
-    cd ../../
     if ! grep parallel-batch-ml-inference-pytorch:latest -q docker-compose.extractors.yml; then
       printf '%s' '''
       parallel-batch-ml-inference-pytorch:
@@ -36,30 +44,31 @@ fi
           - RABBITMQ_URI=${RABBITMQ_URI:-amqp://guest:guest@rabbitmq/%2F}
       ''' >> docker-compose.extractors.yml
     fi
-    ```
     
-    ```shell
+    # no sudo for mac Docker, yes sudo for linux.
     echo "Starting Clowder with extractors"
-    echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    if [ $(uname) = "Darwin" ]; then
+        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
+        open -a "Google Chrome" http://localhost:8000
+    elif [ $(uname) = "Linux" ]; then
+        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
+        firefox http://localhost:8000
+    fi
     ```
-
-    Done!
 
 
 === "🏎   Tensorflow -- Parallel Dataset Extractor -- run ML inference on whole dataset"
-    This demo runs Tensorflow inference over every file in a dataset. Change it to fit your needs!
+    This demo runs Tensorflow inference over every file in a dataset. Change it to fit your needs.
 
     ```shell
-    cd CodeFlare-Extractors/parallel_batch_ml_inference/
-
     # Build the image
     echo "Docker will likely require your sudo password"
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
-    docker build . -t parallel-batch-ml-inference-tensorflow:latest
+    docker build ./CodeFlare-Extractors/parallel_batch_ml_inference/ -t parallel-batch-ml-inference-tensorflow:latest
 
     # Add the image to Clowder docker-compose file
-    cd ../../
     if ! grep parallel-batch-ml-inference-tensorflow:latest -q docker-compose.extractors.yml; then
       printf '%s' '''
       parallel-batch-ml-inference-tensorflow:
@@ -74,12 +83,18 @@ fi
           - RABBITMQ_URI=${RABBITMQ_URI:-amqp://guest:guest@rabbitmq/%2F}
       ''' >> docker-compose.extractors.yml
     fi
-    ```
     
-    ```shell
+    # no sudo for mac Docker, yes sudo for linux.
     echo "Starting Clowder with extractors"
-    echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    if [ $(uname) = "Darwin" ]; then
+        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
+        open -a "Google Chrome" http://localhost:8000
+    elif [ $(uname) = "Linux" ]; then
+        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
+        firefox http://localhost:8000
+    fi
     ```
 
     Done!
@@ -111,12 +126,18 @@ fi
           - RABBITMQ_URI=${RABBITMQ_URI:-amqp://guest:guest@rabbitmq/%2F}
       ''' >> docker-compose.extractors.yml
     fi
-    ```
 
-    ```shell
+    # no sudo for mac Docker, yes sudo for linux.
     echo "Starting Clowder with extractors"
-    echo "Docker will likely require your sudo password"
-    sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+    if [ $(uname) = "Darwin" ]; then
+        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
+        open -a "Google Chrome" http://localhost:8000
+    elif [ $(uname) = "Linux" ]; then
+        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
+        firefox http://localhost:8000
+    fi
     ```
 
 === "🛠   Make your own from a template"
