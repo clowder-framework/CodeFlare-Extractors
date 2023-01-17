@@ -82,14 +82,14 @@ On Linux, please install from source, as described in the [CodeFlare-CLI repo](h
 
 Invoke from **inside your Clowder directory,** so that we may respect Clowder's existing Docker Compose files. 
 
-1. Launch the codeflare CLI to try our default extractors. This will launch Clowder.
+1. Launch the codeflare CLI to try our default extractors. This will launch Clowder. Do *not* use sudo. 
 
 ```bash
 cd your/path/to/clowder 
 codeflare ./CodeFlare-Extractors
 ```
 
-2. Now, upload an image to a [Clowder Dataset](https://clowder-framework.readthedocs.io/en/latest/userguide/ug_datasets.html) so we can try to classify it (into one of 1000 imagenet classes).
+2. Now, as an example, upload a few images to a [Clowder Dataset](https://clowder-framework.readthedocs.io/en/latest/userguide/ug_datasets.html) so we can try to classify it (into one of 1000 imagenet classes).
 
 3. Finally, run the extractor! In the web app, click “Submit for extraction” (shown below).
 
