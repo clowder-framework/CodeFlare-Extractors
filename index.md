@@ -49,8 +49,23 @@ fi
     echo "Starting Clowder with extractors"
     if [ $(uname) = "Darwin" ]; then
         docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
-        open -a "Google Chrome" http://localhost:8000
+
+        # Open Chrome or Firefox, if installed
+        ls /Applications | grep "Google Chrome"
+        if [ $? -eq 0 ]; then
+          echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
+          open -a "Google Chrome" http://localhost:8000
+        else
+          ls /Applications | grep "Firefox"
+          if [ $? -eq 0 ]; then
+            echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
+            open -a "Firefox" http://localhost:8000
+          else
+            echo "Please install Chrome or Firefox, or just navigate to http://localhost:8000"
+          fi
+        fi
+
+        
     elif [ $(uname) = "Linux" ]; then
         sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
         echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
