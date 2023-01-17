@@ -147,7 +147,43 @@ To see debug steps in the Clowder web UI, which is often helpful, simply use `lo
 
 (Coming soon) By default, the code will detect your number of availbe CPU threads, and spawn one worker per thread, likely the only time you'll want to use less is if you anticipate out of memory errors.
 
-#### Understanding the CodeFlare CLI
+## Event driven vs Whole Dataset extractors
+This is defined in each extractor's `extractor_info.json` file, which defines how the extractor appears inside Clowder. You can also change the extractor's name and add authors there. 
+
+#### File added, like an event listener: 
+```json
+"dataset": [
+  "file-added"
+]
+```
+#### Whole Dataset (in parallel by default):
+```json
+"dataset": [
+  "*"
+]
+```
+#### File-level
+This won't run on datasets, it is for cases where you want to manually click on a file, then run just that one file through an extractor. 
+```json
+"file": [
+  "*"
+]
+```
+
+### Trigger on specific filetypes 
+Here's a list of common filetypes (i.e. MIME types) that we support: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types. 
+
+You can use a list of these MIME type strings in the extractors, then it will only run on those files. For example:
+
+```json
+"dataset": [
+  "image/jpeg",
+  "image/png",
+  "image/tiff"
+]
+```
+
+### Understanding the CodeFlare CLI
 
 **What:** Running the CodeFlare-CLI build the selected extractor's Dockerfile adds it to Clowder’s `docker-compose-extractors.yaml` file. Immediately after, we start Clowder as normal, e.g. `docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d`. All codeflare code lives in `index.md` because index files are run by default. But any CodeFlareCLI-compatible `.md` file can be run by calling `codeflare my_file.md` to launch new CLI programs.
 
