@@ -30,7 +30,7 @@ fi
     # Build the image
     echo "Docker will likely require your sudo password"
     export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
-    docker build CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/ -t parallel-batch-ml-inference-pytorch:latest
+    docker build CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/ -t parallel-batch-ml-inference-pytorch:latest --shm-size=3.5gb
 
     # Add the image to Clowder docker-compose file
     if ! grep parallel-batch-ml-inference-pytorch:latest -q docker-compose.extractors.yml; then
@@ -38,6 +38,7 @@ fi
       parallel-batch-ml-inference-pytorch:
         image: parallel-batch-ml-inference-pytorch:latest
         restart: unless-stopped
+        shm_size: '4gb'
         networks:
           - clowder
         depends_on:
@@ -80,7 +81,8 @@ fi
       parallel-batch-ml-inference-tensorflow:
         image: parallel-batch-ml-inference-tensorflow:latest
         restart: unless-stopped
-        networks:_
+        shm_size: '4gb'
+        networks:
           - clowder
         depends_on:
           - rabbitmq
@@ -123,6 +125,7 @@ fi
       eventdrivenextractor:
         image: event-driven-extractor:latest
         restart: unless-stopped
+        shm_size: '4gb'
         networks:
           - clowder
         depends_on:
