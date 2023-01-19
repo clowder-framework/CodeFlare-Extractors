@@ -149,6 +149,23 @@ fi
     fi
     ```
 
+=== "⏬   Download data from Clowder to HPC"
+    This will SSH to your HPC resource, and ask where you want your data downloaded to. Takes care of port forwarding for you.
+    ```shell
+    echo "👉 Starting download_from_clowder_to_delta.sh"
+    bash ./CodeFlare-Extractors/codeflare_helpers/download_from_clowder_to_delta.sh
+    ```
+
+=== "⏫   Upload data form HPC to Clowder"
+    This will SSH to your HPC resource, ask for the local path to your data, and upload it to Clowder for you.
+    ```shell
+    echo "👉 Starting upload_from_delta_to_clowder.sh"
+    bash ./CodeFlare-Extractors/codeflare_helpers/upload_from_delta_to_clowder.sh
+    echo "🌐 Opening destination dataset in default browser (http://localhost:8000/datasets/63c1f967e4b09676b09e58e1)"
+    open http://localhost:8000/datasets/63c1f967e4b09676b09e58e1
+    ```
+
+
 === "🛠   Make your own from a template"
     Doing ML data preprocessing? Have custom code to run over every file in your dataset? Use this template to get started.
     ```shell
