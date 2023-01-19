@@ -8,9 +8,8 @@ if [ ! -d "./CodeFlare-Extractors" ]
 then 
     git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
 fi
-# start docker if it's not running
-./CodeFlare-Extractors/test_bash.sh
 
+# start docker if it's not running
 if ! pgrep -f Docker.app > /dev/null; then
     echo "Starting Docker... please hang tight while it get's started for you."
     open -a "Docker"
@@ -19,7 +18,14 @@ if ! pgrep -f Docker.app > /dev/null; then
     done
     echo "✅ Docker is now running"
 elif [ $(uname) = "Linux" ]; then
-    sudo service docker start
+    docker ps > /dev/null 2>&1
+    if [ ! $? -eq 0 ]; then
+        # docker is NOT running
+        echo "Docker is running, please start Docker."
+        # my attempts were unreliable... especially with WSL2.
+        # sudo service docker start
+        # sudo systemctl start docker
+    fi 
 fi
 ```
 
