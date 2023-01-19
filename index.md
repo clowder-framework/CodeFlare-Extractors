@@ -8,13 +8,16 @@ if [ ! -d "./CodeFlare-Extractors" ]
 then 
     git clone git@github.com:clowder-framework/CodeFlare-Extractors.git
 fi
+# start docker if it's not running
+./CodeFlare-Extractors/test_bash.sh
 
-# Start docker if it's not running
-# echo "Starting Docker"
-# the -g command prevents it from making it the 'focused/foremost' app.
-if [ $(uname) = "Darwin" ]; then
-    echo "Starting IN BACKGROUND"
-    open -ag Docker &
+if ! pgrep -f Docker.app > /dev/null; then
+    echo "Starting Docker... please hang tight while it get's started for you."
+    open -a "Docker"
+    while ! docker ps > /dev/null 2>&1; do
+        sleep 1
+    done
+    echo "✅ Docker is now running"
 elif [ $(uname) = "Linux" ]; then
     sudo service docker start
 fi
@@ -46,26 +49,14 @@ fi
     fi
     
     # no sudo for mac Docker, yes sudo for linux.
+    # Todo: just use default browser, not specific ones on mac. 
     echo "Starting Clowder with extractors"
     if [ $(uname) = "Darwin" ]; then
         docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
+        echo "🌐 Starting Clowder (http://localhost:8000) in your default browser"
+        open http://localhost:8000
+        echo "❓ It may take up to a minute for the containers to start up, please try refreshing the page a few times."
 
-        # Open Chrome or Firefox, if installed
-        ls /Applications | grep "Google Chrome"
-        if [ $? -eq 0 ]; then
-          echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
-          open -a "Google Chrome" http://localhost:8000
-        else
-          ls /Applications | grep "Firefox"
-          if [ $? -eq 0 ]; then
-            echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
-            open -a "Firefox" http://localhost:8000
-          else
-            echo "Please install Chrome or Firefox, or just navigate to http://localhost:8000"
-          fi
-        fi
-
-        
     elif [ $(uname) = "Linux" ]; then
         sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
         echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
