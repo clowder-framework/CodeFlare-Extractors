@@ -55,20 +55,8 @@ fi
       ''' >> docker-compose.extractors.yml
     fi
     
-    # no sudo for mac Docker, yes sudo for linux.
-    # Todo: just use default browser, not specific ones on mac. 
-    echo "Starting Clowder with extractors"
-    if [ $(uname) = "Darwin" ]; then
-        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "🌐 Starting Clowder (http://localhost:8000) in your default browser"
-        open http://localhost:8000
-        echo "❓ It may take up to a minute for the containers to start up, please try refreshing the page a few times."
-
-    elif [ $(uname) = "Linux" ]; then
-        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
-        firefox http://localhost:8000
-    fi
+    # Launch script (docker compose up)
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
 
 
@@ -98,17 +86,8 @@ fi
       ''' >> docker-compose.extractors.yml
     fi
     
-    # no sudo for mac Docker, yes sudo for linux.
-    echo "Starting Clowder with extractors"
-    if [ $(uname) = "Darwin" ]; then
-        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
-        open -a "Google Chrome" http://localhost:8000
-    elif [ $(uname) = "Linux" ]; then
-        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
-        firefox http://localhost:8000
-    fi
+    # Launch script (docker compose up)
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
 
     Done!
@@ -142,17 +121,8 @@ fi
       ''' >> docker-compose.extractors.yml
     fi
 
-    # no sudo for mac Docker, yes sudo for linux.
-    echo "Starting Clowder with extractors"
-    if [ $(uname) = "Darwin" ]; then
-        docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Chrome to appropriate Clowder URL: http://localhost:8000"
-        open -a "Google Chrome" http://localhost:8000
-    elif [ $(uname) = "Linux" ]; then
-        sudo docker-compose -f docker-compose.yml -f docker-compose.extractors.yml up -d
-        echo "Starting Firefox to appropriate Clowder URL: http://localhost:8000"
-        firefox http://localhost:8000
-    fi
+    # Launch script (docker compose up)
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
 
 === "⏬   Download data from Clowder to HPC"
