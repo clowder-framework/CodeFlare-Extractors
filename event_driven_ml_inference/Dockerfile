@@ -6,4 +6,4 @@ RUN apt-get update && apt-get --yes install libsndfile1
 RUN pip install -r requirements.txt
 
 COPY img-extractor.py extractor_info.json ./
-CMD python img-extractor.py
+CMD python img-extractor.py --heartbeat 15

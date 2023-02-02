@@ -92,6 +92,38 @@ fi
 
     Done!
 
+=== "🏎   Huggingface -- Parallel Dataset Extractor -- run ML inference on whole dataset"
+    This demo runs Huggingface inference over every file in a dataset. Change it to fit your needs.
+
+    ```shell
+    # Build the image
+    echo "Docker will likely require your sudo password"
+    export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
+    docker build ./CodeFlare-Extractors/parallel-batch-ml-inference-huggingface/ -t parallel-batch-ml-inference-huggingface:latest
+
+    # Add the image to Clowder docker-compose file
+    if ! grep parallel-batch-ml-inference-huggingface:latest -q docker-compose.extractors.yml; then
+      printf '%s' '''
+      parallel-batch-ml-inference-huggingface:
+        image: parallel-batch-ml-inference-huggingface:latest
+        restart: unless-stopped
+        shm_size: '4gb'
+        networks:
+          - clowder
+        depends_on:
+          - rabbitmq
+          - clowder
+        environment:
+          - RABBITMQ_URI=${RABBITMQ_URI:-amqp://guest:guest@rabbitmq/%2F}
+      ''' >> docker-compose.extractors.yml
+    fi
+    
+    # Launch script (docker compose up)
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
+    ```
+
+    Done!
+
 === "⏰  Event-Driven -- triggers when files are added to dataset"
     Even-driven extractors are perfect for when you upload data to Clowder via the REST API. This way, whenever you add files, you can run them through your ML inference, or whatever you want, post-processing. All in parallel, making full use of your hardware. Warning: Demo uses Tensorflow that is NOT compatible with Apple Silicon.
 

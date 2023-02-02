@@ -1,8 +1,8 @@
 {
-  "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.json",
-  "name": "ncsa.pytorch-parallel-dataset-image-classification",
-  "version": "2.5",
-  "description": "Pytorch parallel Dataset-extractor for ML image classification (ImageNet 1k classes).",
+  "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
+  "name": "ncsa.huggingface-parallel-dataset-sentiment-classifier",
+  "version": "2.0",
+  "description": "Huggingface parallel Dataset-extractor for sentiment classifer of text file",
   "author": "Minh Phan",
   "contributors": ["Kastan Day"],
   "contexts": [
