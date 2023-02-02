@@ -32,6 +32,8 @@ At its heart, **extractors run a Python function over every file in a dataset**.
 
 Extractors are performant, parallel-by-default, web-native [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
 
+Check out our [📜 blog post on the incredible speed and developer experience](https://github.com/clowder-framework/CodeFlare-Extractors/blob/main/utils/media/Getting_Started_with_Ray_Workflows.pdf) of building on Ray.
+
 ### 🧠 ML Inference
 
 Need to process a lot of files? **This is great for ML inference and data pre-processing**. Check out our ML inference examples, or just swap out the model to your own!
