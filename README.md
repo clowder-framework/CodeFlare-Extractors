@@ -41,10 +41,18 @@ Need to process a lot of files? **This is great for ML inference and data pre-pr
 <img src="https://pytorch.org/assets/images/pytorch-logo.png" width="40" align="left">
 
 [PyTorch example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel-batch-ml-inference-pytorch)
+<br>
+<br>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" width="40" align="left">
 
 [TensorFlow Keras example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel_batch_ml_inference)
+<br>
+<br>
+
+<img src="https://em-content.zobj.net/thumbs/120/apple/325/hugging-face_1f917.png" width="40" align="left">
+
+[Huggingface Transformers example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel-batch-ml-inference-huggingface)
 <br>
 <br>
 
