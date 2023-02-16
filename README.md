@@ -32,6 +32,8 @@ At its heart, **extractors run a Python function over every file in a dataset**.
 
 Extractors are performant, parallel-by-default, web-native [Clowder Extractors](https://github.com/clowder-framework/pyclowder) using [CodeFlare](https://research.ibm.com/blog/codeflare-ml-experiments) &amp; [Ray.io](https://www.ray.io/).
 
+Check out our [📜 blog post on the incredible speed and developer experience](https://github.com/clowder-framework/CodeFlare-Extractors/blob/main/utils/media/Getting_Started_with_Ray_Workflows.pdf) of building on Ray.
+
 ### 🧠 ML Inference
 
 Need to process a lot of files? **This is great for ML inference and data pre-processing**. Check out our ML inference examples, or just swap out the model to your own!
@@ -39,10 +41,18 @@ Need to process a lot of files? **This is great for ML inference and data pre-pr
 <img src="https://pytorch.org/assets/images/pytorch-logo.png" width="40" align="left">
 
 [PyTorch example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel-batch-ml-inference-pytorch)
+<br>
+<br>
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" width="40" align="left">
 
 [TensorFlow Keras example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel_batch_ml_inference)
+<br>
+<br>
+
+<img src="https://em-content.zobj.net/thumbs/120/apple/325/hugging-face_1f917.png" width="40" align="left">
+
+[Huggingface Transformers example](https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/parallel-batch-ml-inference-huggingface)
 <br>
 <br>
 
