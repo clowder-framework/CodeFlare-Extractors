@@ -3,6 +3,9 @@
 The CodeFlare-Clowder Template Extractors are a set of extractors that can be used to extract metadata from a variety of file types. The extractors are written in Python and are designed to be run in the Clowder environment. The extractors are available on GitHub at [CodeFlare-Extractors](https://github.com/clowder-framework/CodeFlare-Extractors). NOTE: Make sure this file is on Clowder folder
 
 ```shell
+# todo: set the base path based on clowder path + CodeFlare-Extractors
+export CODEFLARE_BASE_PATH=/Users/kastanday/code/ncsa/clean_clowder_no_edits/another/clowder/CodeFlare-Extractors
+
 # Clone the repo if it doesn't exist
 if [ ! -d "./CodeFlare-Extractors" ] 
 then 
@@ -29,13 +32,12 @@ elif [ $(uname) = "Linux" ]; then
 fi
 ```
 
-=== "🏎   Pytorch -- Parallel Dataset Extractor -- run ML inference on whole dataset"
+=== "🔥   Pytorch -- Parallel Dataset Extractor -- run ML inference on whole dataset"
     This demo runs Tensorflow inference over every file in a dataset. Change it to fit your needs!
 
     ```shell
     # Build the image
     echo "Docker will likely require your sudo password"
-    export DOCKER_DEFAULT_PLATFORM=linux/amd64  ## for better compatibility with M1. 
     docker build CodeFlare-Extractors/parallel-batch-ml-inference-pytorch/ -t parallel-batch-ml-inference-pytorch:latest --shm-size=3.5gb
 
     # Add the image to Clowder docker-compose file
@@ -92,7 +94,7 @@ fi
 
     Done!
 
-=== "🏎   Huggingface -- Parallel Dataset Extractor -- run ML inference on whole dataset"
+=== "🤗   Huggingface -- Parallel Dataset Extractor -- run ML inference on whole dataset"
     This demo runs Huggingface inference over every file in a dataset. Change it to fit your needs.
 
     ```shell
@@ -157,25 +159,59 @@ fi
     bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
 
-=== "⏬   Download data from Clowder to HPC"
-    This will SSH to your HPC resource, and ask where you want your data downloaded to. Takes care of port forwarding for you.
+=== "↔️  Move in and out of Clowder"
+    You can import data from anywhere, and export data to anywhere. Just select a source, then a destination. First select your source files, then your destination location.
+
     ```shell
-    echo "👉 Starting download_from_clowder_to_delta.sh"
-    bash ./CodeFlare-Extractors/codeflare_helpers/download_from_clowder_to_delta.sh
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
 
-=== "⏫   Upload data form HPC to Clowder"
-    This will SSH to your HPC resource, ask for the local path to your data, and upload it to Clowder for you.
-    ```shell
-    echo "👉 Starting upload_from_delta_to_clowder.sh"
-    bash ./CodeFlare-Extractors/codeflare_helpers/upload_from_delta_to_clowder.sh
-    echo "🌐 Opening destination dataset in default browser (http://localhost:8000/datasets/63c1f967e4b09676b09e58e1)"
-    open http://localhost:8000/datasets/63c1f967e4b09676b09e58e1
-    ```
+    ## Select the data you wish to transfer (data source)
+    === "Source: Clowder Dataset"
+        Select from available datasets in Clowder. This transfers the entire dataset, which is a recommended workflow.
+        :import{CodeFlare-Extractors/codeflare_helpers/keys.md}
 
+        After auth, collect the available datasets in Clowder. 
+        ```shell
+        python CodeFlare-Extractors/codeflare_helpers/ds.py
+        ```
 
-=== "🛠   Make your own from a template"
-    Doing ML data preprocessing? Have custom code to run over every file in your dataset? Use this template to get started.
-    ```shell
-    echo "👉 Please see ./CodeFlare-Extractors/template_for_custom_parallel_batch_extractors for a example & quickstart template"
-    ```
+        ## Select the Clowder dataset you wish to transfer. 
+            :import{CodeFlare-Extractors/codeflare_helpers/select_clowder_dataset.md}
+
+            ## Select the destination location.
+            :import{CodeFlare-Extractors/codeflare_helpers/data_movement_select_destination.md}
+    
+    === "Source: HPC"
+        SSH to your HPC resource and copy data from any path there to any destination. You can supply a list of files, or a path to a directory. 
+        ```shell
+        echo "👉 Starting download_from_delta_to_clowder.sh"
+        bash CodeFlare-Extractors/codeflare_helpers/download_from_delta_to_clowder.sh
+        ```
+
+        # Select the destination location.
+        :import{CodeFlare-Extractors/codeflare_helpers/data_movement_select_destination.md}
+
+        # Enter the Source path on HPC. Everything inside this directory will be copied to your destination.
+        === "Enter the destination path on HPC (e.g. /home/user/data/) [default: ~/]"
+            ```shell
+            echo "👉 Selected destination path: ${choice}"
+            # export HPC_DESTINATION_PATH=${choice}
+            ```
+
+    === "Source: AWS S3"
+        Select from available buckets in AWS S3. Transfer the entire bucket, or a list of files. Ensure '$ aws s3 ls' works on your machine.
+        ```shell
+        echo "todo"
+        ```
+        
+        # Select the source filepath you wish to copy from S3.
+        === "Enter the source path on S3 (e.g. s3://my-bucket/data/destination/) [default: s3://my-bucket]"
+            ```shell
+            echo "👉 Selected destination path: ${choice}"
+            # export HPC_DESTINATION_PATH=${choice}
+            ```
+
+            # Select the destination location.
+            :import{CodeFlare-Extractors/codeflare_helpers/data_movement_select_destination.md}
+
