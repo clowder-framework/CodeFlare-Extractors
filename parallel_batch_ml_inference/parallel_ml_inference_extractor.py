@@ -10,6 +10,7 @@ import ray
 from ray.util.queue import Queue
 import pyclowder.files
 from pyclowder.extractors import Extractor
+import ast
 
 
 @ray.remote
@@ -34,7 +35,7 @@ class AsyncActor:
         # run predictions
         processed_image = preprocess_input(image_batch, mode='caffe')
         preds = self.model.predict(processed_image)
-        pred_class = decode_predictions(preds, top=1)
+        pred_class = decode_predictions(preds, top=3)
         return str(pred_class)
 
 class ImgExtractor(Extractor):
@@ -85,11 +86,18 @@ class ImgExtractor(Extractor):
         # NOTE: Only "max_concurrency" tasks will be running concurrently. Once "max_concurrency" finish, the next "max_concurrency" batch should run.
         actor = AsyncActor.options(max_concurrency=3).remote()
         classifications = ray.get([actor.process_file.remote(localfiles[i]) for i in range(len(localfiles))])
-
+        # Upload metadata to original file
         for i in range(len(classifications)):
-            # Upload metadata to original file
+            # parse string into array
+            predictions = ast.literal_eval(classifications[i])
+            # add labels
+            labeled_predictions = []
+            for p in predictions[0]:
+                prediction = {"class_name": p[0], "class_prediction": p[1], "score": p[2]}
+                labeled_predictions.append(prediction)
+            # created metadata entry
             my_metadata = {
-                    'Output': classifications[i]
+                    'Predictions': labeled_predictions
             }
 
             # Create Clowder metadata object
