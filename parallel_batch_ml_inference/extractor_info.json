@@ -1,15 +1,16 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
   "name": "ncsa.tensorflow-parallel-dataset-image-classification",
-  "version": "2.2",
+  "version": "2.3",
   "description": "Tensorflow parallel Dataset-extractor for ML image classification (ImageNet 1k classes). NOT COMPATIBLE with Apple Silicon M1",
   "author": "Minh Phan",
   "contributors": ["Kastan Day"],
   "contexts": [
     {
-      "lines": "http://clowder.ncsa.illinois.edu/metadata/ncsa.wordcount#lines",
-      "words": "http://clowder.ncsa.illinois.edu/metadata/ncsa.wordcount#words",
-      "characters": "http://clowder.ncsa.illinois.edu/metadata/ncsa.wordcount#characters"
+      "Predictions": "http://clowder.ncsa.illinois.edu/metadata/ncsa.tensorflow-parallel-dataset-image-classification#Predictions",
+      "class_name": "http://clowder.ncsa.illinois.edu/metadata/ncsa.tensorflow-parallel-dataset-image-classification#Predictions.class_name",
+      "class_description": "http://clowder.ncsa.illinois.edu/metadata/ncsa.tensorflow-parallel-dataset-image-classification#Predictions.class_description",
+      "score": "http://clowder.ncsa.illinois.edu/metadata/ncsa.tensorflow-parallel-dataset-image-classification#Predictions.score"
     }
   ],
   "repository": [
@@ -23,7 +24,7 @@
       "*"
     ]
   },
-  "external_services": [],
-  "dependencies": [],
+  "external_services": ["https://storage.googleapis.com/tensorflow/keras-applications/resnet/resnet50_weights_tf_dim_ordering_tf_kernels.h5"],
+  "dependencies": ["tensorflow"],
   "bibtex": []
 }
