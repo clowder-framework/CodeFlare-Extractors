@@ -36,7 +36,7 @@ Check out our [📜 blog post on the incredible speed and developer experience](
 
 ### 🧠 ML Inference
 
-Need to process a lot of files? **This is great for ML inference and data pre-processing**. Check out our ML inference examples, or just swap out the model to your own!
+Need to process a lot of files? **This is great for ML inference and data pre-processing**. These examples work out of the box or you can swap in your own model!
 
 <img src="https://pytorch.org/assets/images/pytorch-logo.png" width="40" align="left">
 
