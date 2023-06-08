@@ -214,4 +214,20 @@ fi
 
             # Select the destination location.
             :import{CodeFlare-Extractors/codeflare_helpers/data_movement_select_destination.md}
+    
+    === "Source: Google Cloud Storage"
+        Select from available buckets in Google Cloud Storage. Transfer the entire bucket, or a list of files. Ensure '$ gsutil ls' already works on your machine.
+        ```shell
+        echo "todo"
+        ```
+        
+        # Select the source filepath you wish to copy from Google Cloud Storage.
+        === "Enter the source path on S3 (e.g. gs://my-bucket/data/destination/) [default: gs://my-bucket]"
+            ```shell
+            echo "👉 Selected destination path: ${choice}"
+            # export HPC_DESTINATION_PATH=${choice}
+            ```
+
+            # Select the destination location.
+            :import{CodeFlare-Extractors/codeflare_helpers/data_movement_select_destination.md}
 
