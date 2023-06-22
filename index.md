@@ -158,6 +158,15 @@ fi
     # Launch script (docker compose up)
     bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
     ```
+=== "🛰️  Run Landsat Analysis Workflow"
+    Google Cloud Storage → Clowder → HPC Jobs → Results to Clowder
+
+    ```shell
+    bash ./CodeFlare-Extractors/codeflare_helpers/launch_clowder.sh
+    ```
+
+    :import{CodeFlare-Extractors/codeflare_helpers/landsat_workflow/landsat_workflow.md}
+
 
 === "↔️  Move in and out of Clowder"
     You can import data from anywhere, and export data to anywhere. Just select a source, then a destination. First select your source files, then your destination location.
