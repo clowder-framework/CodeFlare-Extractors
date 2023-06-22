@@ -1,6 +1,6 @@
-## Run step 4
-=== "Run step 4"
-    some description
+## Run Landsat Workflow
+=== "Run Landsat Workflow"
+    Run Ingmar Nitze Landsat workflow, defined here: <https://github.com/initze/landsattrend>
     ```shell
-    bash ./CodeFlare-Extractors/codeflare_helpers/landsat_workflow/step_4_copy_results_hpc_to_clowder.sh
+    bash ./CodeFlare-Extractors/codeflare_helpers/landsat_workflow/run_landsat_workflow.sh
     ```
