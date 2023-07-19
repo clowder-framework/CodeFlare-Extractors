@@ -206,3 +206,4 @@ You can use a list of these MIME type strings in the extractors, then it will on
 * [Extractor Details](https://opensource.ncsa.illinois.edu/confluence/display/CATS/Extractors#Extractors-Extractorbasics)
 
 * [PyClowder Extractors Source](https://github.com/clowder-framework/pyclowder)
+
