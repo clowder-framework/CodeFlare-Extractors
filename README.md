@@ -13,7 +13,7 @@
 <a href="https://github.com/clowder-framework/CodeFlare-Extractors/tree/main/template_for_custom_parallel_batch_extractors">Make your own from a Template</a> •
 <a href="https://clowder.ncsa.illinois.edu/clowder/">Try it now</a>
 
-Join our Slack to talk to the devs
+Join our Slack to talk to the devs.
 
 [![Join our Slack for support](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)](https://clowder-software.slack.com/join/shared_invite/enQtMzQzOTg0Nzk3OTUzLTYwZDlkZDI0NGI4YmI0ZjE5MTZiYmZhZTIyNWE1YzM0NWMwMzIxODNhZTA1Y2E3MTQzOTg1YThiNzkwOWQwYWE#/shared-invite/email)
 
