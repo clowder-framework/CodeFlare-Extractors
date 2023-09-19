@@ -67,20 +67,12 @@ class SingleFileHuggingFace(Extractor):
     return sentiments
 
   def process_message(self, connector, host, secret_key, resource, parameters):
-    # Process the file and upload the results
-    # host = 'http://host.docker.internal'
-
     logger = logging.getLogger(__name__)
     inputfile = resource["local_paths"][0]
     file_id = resource['id']
 
     # These process messages will appear in the Clowder UI under Extractions.
     connector.message_process(resource, "Loading contents of file...")
-
-    # Call actual program
-    # result = subprocess.check_output(['wc', inputfile], stderr=subprocess.STDOUT)
-    # result = result.decode('utf-8')
-    # (lines, words, characters, _) = result.split()
 
     # PREDICT
     text = preprocess(inputfile)
@@ -92,25 +84,10 @@ class SingleFileHuggingFace(Extractor):
     preds = {"predictions": predictions}
 
     # UPLOAD
-    host = 'http://host.docker.internal'
+    host = 'http://host.docker.internal'  # !WARNING Crazy workaround for docker...
     metadata = self.get_metadata(preds, 'file', file_id, host)
     connector.message_process(resource, f"metadata to upload: {metadata}")
     pyclowder.files.upload_metadata(connector, host, secret_key, file_id, metadata)
-
-    # logger.debug(metadata)
-
-    # Store results as metadata
-    # result = {'lines': lines, 'words': words, 'characters': characters}
-    # metadata = self.get_metadata(result, 'file', file_id, host)
-
-    # Normal logs will appear in the extractor log, but NOT in the Clowder UI.
-
-    # for i in range(len(predictions)):
-    # Upload metadata to original file
-    # my_metadata = {'Output': predictions}
-
-    # Create Clowder metadata object
-    # host = 'http://host.docker.internal'
 
 
 if __name__ == "__main__":
