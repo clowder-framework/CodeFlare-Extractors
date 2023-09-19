@@ -1,0 +1,8 @@
+pyclowder==3.0.3
+ray[default]==2.7.0
+numpy
+scipy
+pillow
+torch
+torchvision
+transformers

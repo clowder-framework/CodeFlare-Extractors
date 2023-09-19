@@ -1,0 +1,31 @@
+{
+  "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
+  "name": "ncsa.SINGLEFILE-text-classifier",
+  "version": "2.1",
+  "description": "Huggingface dataset-extractor for sentiment classifier of text file",
+  "author": "Kastan Day",
+  "contributors": [
+    "Luigi Marini"
+  ],
+  "contexts": [
+    {
+      "predictions": "http://example.org"
+    }
+  ],
+  "repository": [
+    {
+      "repType": "git",
+      "repUrl": "https://opensource.ncsa.illinois.edu/stash/scm/cats/pyclowder.git"
+    }
+  ],
+  "process": {
+    "file": [
+      "text/*",
+      "application/json"
+    ]
+  },
+  "max_retry": 1,
+  "external_services": [],
+  "dependencies": [],
+  "bibtex": []
+}
