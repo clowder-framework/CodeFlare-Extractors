@@ -1,4 +1,4 @@
-pyclowder==3.0.3
+pyclowder==3.0.7
 ray[default]==2.7.0
 numpy
 scipy

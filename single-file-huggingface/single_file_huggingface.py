@@ -2,6 +2,7 @@
 """Example extractor based on the clowder code."""
 
 import logging
+import os
 from distutils import extension
 from typing import Dict
 
@@ -11,7 +12,8 @@ import ray
 from pyclowder.extractors import Extractor
 from ray.util.queue import Queue
 from scipy.special import softmax
-from transformers import (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, TFAutoModelForSequenceClassification)
+from transformers import (AutoConfig, AutoModelForSequenceClassification,
+                          AutoTokenizer, TFAutoModelForSequenceClassification)
 
 
 def preprocess(single_filepath):
@@ -47,7 +49,9 @@ class SingleFileHuggingFace(Extractor):
     MODEL = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
     self.tokenizer = AutoTokenizer.from_pretrained(MODEL)
     self.config = AutoConfig.from_pretrained(MODEL)
-    self.model = AutoModelForSequenceClassification.from_pretrained(MODEL)
+    
+    os.makedirs('/tmp/huggingface', exist_ok=True)
+    self.model = AutoModelForSequenceClassification.from_pretrained(MODEL, cache_dir='/tmp/huggingface')
 
   def predict(self, text):
     encoded_input = self.tokenizer(text, return_tensors='pt')

@@ -1,8 +1,8 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
-  "name": "ncsa.SINGLEFILE-text-classifier",
-  "version": "2.1",
-  "description": "Huggingface dataset-extractor for sentiment classifier of text file",
+  "name": "ncsa.huggingface_automodel",
+  "version": "1.10",
+  "description": "Just pass in any model name that supports huggingface's AutoModel and/or Pipeline functions. Learn more here: https://huggingface.co/docs/transformers/main_classes/pipelines",
   "author": "Kastan Day",
   "contributors": [
     "Luigi Marini"
@@ -30,25 +30,13 @@
   "bibtex": [],
   "parameters": {
     "schema": {
-      "X_MIN_START": {
-        "type": "integer",
-        "title": "X_MIN_START"
-      },
-      "X_MIN_END": {
-        "type": "integer",
-        "title": "X_MIN_END"
-      },
-      "Y_MIN_START": {
-        "type": "integer",
-        "title": "Y_MIN_START"
-      },
-      "Y_MIN_END": {
-        "type": "integer",
-        "title": "Y_MIN_END"
-      },
-      "ZONE": {
+      "MODEL_NAME": {
         "type": "string",
-        "title": "ZONE"
+        "title": "MODEL_NAME, e.g. `meta-llama/Llama-2-7b-chat-hf`"
+      },
+      "KWARGS": {
+        "type": "string",
+        "title": "Kwargs for the Pipeline() function, as a JSON dictionary. e.g. `{\"max_new_tokens\": 256, \"temperature\": 0.7}`"
       }
     }
   }

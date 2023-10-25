@@ -1,0 +1,8 @@
+pyclowder==3.0.7
+ray[default]==2.7.0
+torch
+transformers
+accelerate
+sentencepiece
+sentence-transformers
+einops
