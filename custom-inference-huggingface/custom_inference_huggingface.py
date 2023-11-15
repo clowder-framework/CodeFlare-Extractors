@@ -15,33 +15,41 @@ from transformers import pipeline
 
 os.environ['TRANSFORMERS_CACHE'] = '/tmp/huggingface'
 
-def run_model(setup_code: str , predict_code: str, input: str):
+def run_model(setup_code: str, predict_code: str, input: str):
   """
-  This function runs a HuggingFace model on a given prompt.
+  This function executes arbitrary Python code for machine learning inference.
 
   Args:
-    prompt (`str`): The input text that the model will process.
-    model (`str`): The full name of a HuggingFace model to be used for the task.
-    pipeline_kwargs (`dict`, *optional*): Additional keyword arguments to be passed to the HuggingFace pipeline.
+    setup_code (str): The Python code to set up the machine learning model or environment.
+    predict_code (str): The Python code to run the inference using the model.
+    input (str): The input data on which the inference will be performed.
 
   Returns:
-    The output of the model after processing the prompt. In case of a CUDA Out Of Memory error, it returns an error message.
+    The result of the inference after executing the predict_code. In case of an error, it returns an error message.
 
   Raises:
-    RuntimeError: If there is an error other than CUDA OOM while running the model.
+    Exception: If there is an error during the execution of the setup or prediction code.
   """
+  # Decode the escaped newlines
+  setup_code = setup_code.replace('\\n', '\n')
+  predict_code = predict_code.replace('\\n', '\n')
+
+  print()
+  print("👇"*10)
   print("Setup Code Block:")
-  print("-----------------")
   print(setup_code)
+  print("-----------------")
   print()
 
   print("Predict Code Block:")
-  print("-------------------")
   print(predict_code)
+  print("-------------------")
+  print()
   
   print("Input:")
-  print("-------------------")
   print(input)
+  print("-------------------")
+  print("👆"*10)
 
   # Setup 
   setup_globals = {}
@@ -155,7 +163,7 @@ class SingleFileHuggingFace(Extractor):
     }
 
     # UPLOAD
-    host = 'http://host.docker.internal'  # !WARNING Crazy workaround for docker...
+    host = 'http://host.docker.internal' if os.path.exists('/.dockerenv') else 'http://localhost' # !WARNING workaround for local Docker networking...
     metadata = self.get_metadata(preds, 'file', file_id, host)
     connector.message_process(resource, f"metadata to upload: {metadata}")
     pyclowder.files.upload_metadata(connector, host, secret_key, file_id, metadata)

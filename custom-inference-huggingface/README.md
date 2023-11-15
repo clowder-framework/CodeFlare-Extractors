@@ -11,13 +11,22 @@ This extractor is ready to be run as a docker container, the only dependency is 
 ```
 # from this directory, run:
 
-docker build -t clowder_wordcount .
+docker build -t custom-inference-huggingface .
 ```
 
 3. Finally run the extractor:
+This run command may differ between local docker development and production k8s deployment.
 
 ```
-docker run -t -i --rm --net clowder_clowder -e "RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672/%2f" --name "wordcount" clowder_wordcount
+# FOR CLOWDER v2 running locally
+docker run -t -i --rm --net clowder2_clowder2 \
+  -e CLOWDER_URL=http://host.docker.internal:80/ \
+  -e "CLOWDER_VERSION=2" \
+  -e RABBITMQ_URI="amqp://guest:guest@clowder2-rabbitmq-1:5672/%2F" \
+  --shm-size=26.17gb \
+  --name custom-inference-huggingface \
+  custom-inference-huggingface
+
 ```
 
 Then open the Clowder web app and run the wordcount extractor on a .txt file (or similar)! Done.

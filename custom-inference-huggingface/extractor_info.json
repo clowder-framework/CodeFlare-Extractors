@@ -1,7 +1,7 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
   "name": "ncsa.custom-inference-huggingface",
-  "version": "0.1",
+  "version": "1.0",
   "description": "This extractor allows for custom machine learning inference, using huggingface Transformers or any `setup` and `predict` function you want to define with any dependencies. Users can specify the model setup and prediction code via parameters, as well as any additional pip requirements. The extractor handles the execution of user-defined code and returns the model's predictions.",
   "author": "Kastan Day",
   "contributors": [
