@@ -1,0 +1,47 @@
+{
+  "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
+  "name": "ncsa.custom-inference-huggingface",
+  "version": "0.1",
+  "description": "This extractor allows for custom machine learning inference, using huggingface Transformers or any `setup` and `predict` function you want to define with any dependencies. Users can specify the model setup and prediction code via parameters, as well as any additional pip requirements. The extractor handles the execution of user-defined code and returns the model's predictions.",
+  "author": "Kastan Day",
+  "contributors": [
+    "Luigi Marini"
+  ],
+  "contexts": [
+    {
+      "predictions": "http://example.org"
+    }
+  ],
+  "repository": [
+    {
+      "repType": "git",
+      "repUrl": "https://opensource.ncsa.illinois.edu/stash/scm/cats/pyclowder.git"
+    }
+  ],
+  "process": {
+    "file": [
+      "text/*",
+      "application/json"
+    ]
+  },
+  "max_retry": 1,
+  "external_services": [],
+  "dependencies": [],
+  "bibtex": [],
+  "parameters": {
+    "schema": {
+      "SETUP_CODE": {
+        "type": "string",
+        "title": "Python code to setup the model, e.g. `from transformers import pipeline; pipe = pipeline('text-generation', model='gpt2')`"
+      },
+      "PREDICT_CODE": {
+        "type": "string",
+        "title": "Python code to run predictions, e.g. `output = pipe(input, max_length=50)`. Your final result *must* be stored in a variable called `output`."
+      },
+      "PIP_REQUIREMENTS": {
+        "type": "string",
+        "title": "A string of pip requirements to install, e.g. `transformers==4.5.0\\ntorch==1.8.1`"
+      }
+    }
+  }
+}
