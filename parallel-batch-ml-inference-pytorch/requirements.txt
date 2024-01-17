@@ -1,4 +1,4 @@
-pyclowder==2.6.0
+pyclowder==3.0.7
 ray[default]==1.13.0
 torchvision
 pillow
