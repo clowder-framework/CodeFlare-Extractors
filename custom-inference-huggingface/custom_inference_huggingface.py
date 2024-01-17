@@ -1,5 +1,16 @@
 #!/usr/bin/env python
-"""Example extractor based on the clowder code."""
+"""Example extractor that runs custom inference using HuggingFace Transformers or any ML frameowrk in Python.
+
+Usage in Clowder GUI:
+# SETUP_CODE
+from transformers import pipeline\npipe = pipeline(model='gpt2')
+
+# PREDICT_CODE
+output = pipe(input, max_new_tokens=20, do_sample=True)
+
+# PIP_REQUIREMENTS
+arxiv\npython-dotenv
+"""
 
 import json
 import logging
@@ -30,10 +41,6 @@ def run_model(setup_code: str, predict_code: str, input: str):
   Raises:
     Exception: If there is an error during the execution of the setup or prediction code.
   """
-  # Decode the escaped newlines
-  setup_code = setup_code.replace('\\n', '\n')
-  predict_code = predict_code.replace('\\n', '\n')
-
   print()
   print("👇"*10)
   print("Setup Code Block:")
@@ -125,11 +132,11 @@ class SingleFileHuggingFace(Extractor):
         print(f"Error:{e}\nWarning Failed to load parameters with json.loads(), attempting loading as Python Dict.")
         if type(parameters == Dict):
           params = parameters['parameters']
-
-      user_setup_code = params['SETUP_CODE']
-      user_predict_code = params['PREDICT_CODE']
+      
+      user_setup_code = params['SETUP_CODE'].replace('\\n', '\n')
+      user_predict_code = params['PREDICT_CODE'].replace('\\n', '\n')
       if 'PIP_REQUIREMENTS' in params:
-        pip_requirements = params['PIP_REQUIREMENTS']
+        pip_requirements = params['PIP_REQUIREMENTS'].replace('\\n', '\n') # Decode the escaped newlines
       print(f"Received SETUP_CODE: {user_setup_code}")
       print(f"Received PREDICT_CODE: {user_predict_code}")
       print(f"Received PIP_REQUIREMENTS: {pip_requirements}")
@@ -158,6 +165,7 @@ class SingleFileHuggingFace(Extractor):
     preds = {
       "setup_code": user_setup_code,
       "predict_code": user_predict_code,
+      "requirements": pip_requirements,
       "predictions": predictions,
       "⏰ runtime (seconds)": round(time.monotonic() - start_time, 2)
     }

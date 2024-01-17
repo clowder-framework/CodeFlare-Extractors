@@ -1,7 +1,7 @@
 {
   "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
   "name": "ncsa.custom-inference-huggingface",
-  "version": "1.0",
+  "version": "1.1",
   "description": "This extractor allows for custom machine learning inference, using huggingface Transformers or any `setup` and `predict` function you want to define with any dependencies. Users can specify the model setup and prediction code via parameters, as well as any additional pip requirements. The extractor handles the execution of user-defined code and returns the model's predictions.",
   "author": "Kastan Day",
   "contributors": [
@@ -32,15 +32,40 @@
     "schema": {
       "SETUP_CODE": {
         "type": "string",
-        "title": "Python code to setup the model, e.g. `from transformers import pipeline; pipe = pipeline('text-generation', model='gpt2')`"
+        "format": "textarea",
+        "title": "V2 Python code to setup the model, e.g. `from transformers import pipeline; pipe = pipeline('text-generation', model='gpt2')`"
       },
       "PREDICT_CODE": {
         "type": "string",
-        "title": "Python code to run predictions, e.g. `output = pipe(input, max_length=50)`. Your final result *must* be stored in a variable called `output`."
+        "format": "textarea",
+        "title": "Python code to run predictions, e.g. `output = pipe(input, max_new_tokens=8)`. Your final result *must* be stored in a variable called `output`."
       },
       "PIP_REQUIREMENTS": {
         "type": "string",
+        "format": "textarea",
         "title": "A string of pip requirements to install, e.g. `transformers==4.5.0\\ntorch==1.8.1`"
+      }
+    },
+    "uiSchema": {
+      "SETUP_CODE": {
+        "ui:autofocus": true,
+        "ui:emptyValue": "",
+        "ui:placeholder": "ui:emptyValue causes this field to always be valid despite being required",
+        "ui:description": "Name of the dataset."
+      },
+      "PREDICT_CODE": {
+        "ui:autofocus": true,
+        "ui:emptyValue": "",
+        "ui:placeholder": "ui:emptyValue causes this field to always be valid despite being required",
+        "ui:description": "Description of a dataset.",
+        "ui:widget": "TextAreaWidget"
+      },
+      "PIP_REQUIREMENTS": {
+        "ui:autofocus": true,
+        "ui:emptyValue": "",
+        "ui:placeholder": "ui:emptyValue causes this field to always be valid despite being required",
+        "ui:description": "Description of a dataset.",
+        "ui:widget": "TextAreaWidget"
       }
     }
   }
