@@ -33,7 +33,7 @@
       "SETUP_CODE": {
         "type": "string",
         "format": "textarea",
-        "title": "V2 Python code to setup the model, e.g. `from transformers import pipeline; pipe = pipeline('text-generation', model='gpt2')`"
+        "title": "Python code to setup the model, e.g. `from transformers import pipeline; pipe = pipeline('text-generation', model='gpt2')`"
       },
       "PREDICT_CODE": {
         "type": "string",

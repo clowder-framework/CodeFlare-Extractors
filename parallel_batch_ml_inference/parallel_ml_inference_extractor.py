@@ -8,6 +8,8 @@ import logging
 import numpy as np
 import ray
 from ray.util.queue import Queue
+import os
+from PIL import UnidentifiedImageError
 import pyclowder.files
 from pyclowder.extractors import Extractor
 
@@ -26,7 +28,11 @@ class AsyncActor:
         from tensorflow.keras.preprocessing import image
 
         # pre-process image
-        original = image.load_img(filepaths, target_size=(224, 224))
+        try:
+            original = image.load_img(filepaths, target_size=(224, 224))
+        except UnidentifiedImageError:
+            print("Unidentified Image Error")
+            return "Unidentified Image Error. Possible corrupted image, please replace image."
         numpy_image = image.img_to_array(original)
         image_batch = np.expand_dims(numpy_image, axis=0)
         processed_image = preprocess_input(image_batch, mode='caffe')
@@ -57,14 +63,19 @@ class ImgExtractor(Extractor):
     def process_message(self, connector, host, secret_key, resource, parameters):
         """Dataset extractor. We get all filenames at once."""
         logger = logging.getLogger(__name__)
-        
+
         # Get list of all files in dataset
         filelist = pyclowder.datasets.get_file_list(connector, host, secret_key, parameters['datasetId'])
         localfiles = []
+        clowder_version = int(os.getenv('CLOWDER_VERSION', '1'))
         
         # # Loop through dataset and download all file "locally"
         for file_dict in filelist:
-            extension = "." + file_dict['contentType'].split("/")[1]
+            # Use the correct key depending on the Clowder version
+            if clowder_version == 2:
+                extension = "." + file_dict['content_type']['content_type'].split("/")[1]
+            else:
+                extension = "." + file_dict['contentType'].split("/")[1]
             localfiles.append(pyclowder.files.download(connector, host, secret_key, file_dict['id'], ext=extension))
 
         # These process messages will appear in the Clowder UI under Extractions.
