@@ -28,7 +28,7 @@ class PrithviFineTunedExtractor(Extractor):
     def process_message(self, connector, host, secret_key, resource, parameters):
 
         input_file = resource["local_paths"][0]
-        file_id = resource['id']
+        file_name = resource['name']
         dataset_id = resource['parent']['id']
 
         # Load user-defined params from the GUI.
@@ -57,7 +57,7 @@ class PrithviFineTunedExtractor(Extractor):
         # PREDICT
         model = PrithviFineTunedModel()
         model.get_model(APPLICATION_TYPE)
-        output_file = input_file.replace(".tif", "_pred.tif")
+        output_file = file_name.replace(".tif", "_pred.tif")
         model.inference(input_file, output_file, save_image=SAVE_IMAGE)
         print("Inference successful")
 
@@ -67,7 +67,7 @@ class PrithviFineTunedExtractor(Extractor):
         connector.message_process(resource, "Uploading predicted tiff file...")
         pyclowder.files.upload_to_dataset(connector, host, secret_key, dataset_id, output_file)
         if SAVE_IMAGE:
-            combined_image = output_file.replace(".tif", "_masked.png")
+            combined_image = file_name.replace(".tif", "_masked.png")
             pyclowder.files.upload_to_dataset(connector, host, secret_key, dataset_id, combined_image)
 
 

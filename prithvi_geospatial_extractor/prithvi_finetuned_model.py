@@ -70,7 +70,7 @@ class PrithviFineTunedModel:
             ax.imshow(input_data_inference)
             ax.imshow(output_data_inference, cmap="jet", alpha=0.3, norm=norm)
             ax.axis('off')
-            fig.savefig(output_file_name.replace(".tif", "_masked.png"), bbox_inches='tight',
+            fig.savefig(output_file_name.replace("_pred.tif", "_masked.png"), bbox_inches='tight',
                         pad_inches=0, transparent=True)
 
 
