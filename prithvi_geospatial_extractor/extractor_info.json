@@ -41,7 +41,7 @@
           "True",
           "False"
         ],
-        "default": "False"
+        "default": "True"
       }
     }
   }
