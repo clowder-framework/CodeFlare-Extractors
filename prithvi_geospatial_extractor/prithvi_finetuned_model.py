@@ -6,8 +6,10 @@ from mmseg.apis import init_segmentor
 from model_inference import inference_segmentor, process_test_pipeline, inference_on_file
 from huggingface_hub import hf_hub_download
 from viz_helpers import load_raster, enhance_raster_for_visualization
-import matplotlib.pyplot as plt
+
 import matplotlib
+matplotlib.use('Agg')  # Since we are not using a GUI
+import matplotlib.pyplot as plt
 import numpy as np
 
 
