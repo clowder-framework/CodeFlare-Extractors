@@ -8,7 +8,6 @@ setup(
     author="Paolo Fraccaro, Carlos Gomes, Johannes Jakubik",
     packages=["geospatial_fm"],
     license="Apache 2",
-    long_description=open("README.md").read(),
     install_requires=[
         "mmsegmentation @ git+https://github.com/open-mmlab/mmsegmentation.git@186572a3ce64ac9b6b37e66d58c76515000c3280",
         "rasterio",
@@ -18,5 +17,6 @@ setup(
         "tensorboard",
         "imagecodecs",
         "yapf==0.40.1",
+        "pyclowder==3.0.7"
     ],
 )
