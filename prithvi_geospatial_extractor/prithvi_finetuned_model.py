@@ -8,9 +8,7 @@ from huggingface_hub import hf_hub_download
 from viz_helpers import load_raster, enhance_raster_for_visualization
 import matplotlib.pyplot as plt
 import matplotlib
-from torch import nn
 import numpy as np
-import rasterio
 
 
 class PrithviFineTunedModel:
@@ -47,9 +45,9 @@ class PrithviFineTunedModel:
         ckpt = hf_hub_download(repo_id=repo_id, filename=ckpt_filename)
         self.model = init_segmentor(Config.fromfile(config_path), ckpt, device="cpu")
 
-    def inference(self, input_data, output_file_name, save_metadata_image = False,):
+    def inference(self, input_data, output_file_name, save_image = False):
         """This function takes in the input data and mask image and save the inferred TIFF image and
-        if set to true, the combined image as metadata.
+        if set to true, the combined image is saved as well.
         Args:
             input_data (np.ndarray): The input data
             output_file_name (str): The name of the output file
@@ -61,7 +59,7 @@ class PrithviFineTunedModel:
 
         custom_test_pipeline = process_test_pipeline(self.model.cfg.data.test.pipeline)
         inference_on_file(self.model, input_data, output_file_name, custom_test_pipeline )
-        if save_metadata_image:
+        if save_image:
             input_data_inference = enhance_raster_for_visualization(load_raster(input_data))
             output_data_inference = enhance_raster_for_visualization(load_raster(output_file_name))
             norm = matplotlib.colors.Normalize(vmin=0, vmax=2)
@@ -70,11 +68,12 @@ class PrithviFineTunedModel:
             ax.imshow(input_data_inference)
             ax.imshow(output_data_inference, cmap="jet", alpha=0.3, norm=norm)
             ax.axis('off')
-            fig.savefig(output_file_name.replace(".tif", "_metadata.png"), bbox_inches='tight',
+            fig.savefig(output_file_name.replace(".tif", "_masked.png"), bbox_inches='tight',
                         pad_inches=0, transparent=True)
 
 
 # Test the model
+# TODO: test with other applications and other input data
 if __name__ == "__main__":
     model = PrithviFineTunedModel()
     model.get_model("flood_mapping")
