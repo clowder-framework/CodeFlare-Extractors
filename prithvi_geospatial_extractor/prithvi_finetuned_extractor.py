@@ -63,7 +63,6 @@ class PrithviFineTunedExtractor(Extractor):
 
         # Upload predicted tiff file to Clowder dataset as a new file
         # if save_image is true upload the combined image as well
-        # TODO: Use application_name to name the output file
         connector.message_process(resource, "Uploading predicted tiff file...")
         pyclowder.files.upload_to_dataset(connector, host, secret_key, dataset_id, output_file)
         if SAVE_IMAGE:

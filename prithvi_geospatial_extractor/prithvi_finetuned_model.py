@@ -75,7 +75,6 @@ class PrithviFineTunedModel:
 
 
 # Test the model
-# TODO: test with other applications and other input data
 if __name__ == "__main__":
     model = PrithviFineTunedModel()
     model.get_model("flood_mapping")
