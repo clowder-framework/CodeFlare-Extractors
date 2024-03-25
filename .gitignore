@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Prithvi geospatial package
+prithvi_geospatial_extractor/geospatial_fm.egg-info/
